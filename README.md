@@ -11,6 +11,8 @@ This repository extends **PX4 Autopilot** to support research on **fully actuate
 
 It focuses on the **Palletrone**, a fully actuated micro-UAV platform, and integrates **MOCE 2.0 (Model-Based Online Center of Mass Estimation)** for real-time control and estimation.
 
+Additional control logic for RTK flight under research (구과과제) project. 
+
 ### Key Modifications
 
 - **MOCE 2.0**: Model-Based Online Center of Mass Estimation for fully actuated mUAVs
