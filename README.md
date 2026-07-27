@@ -22,10 +22,6 @@ Additional control logic for RTK flight under research (구과과제) project.
     - Disturbance Observer (DOB)
     - Online CoM Estimation (MOCE 2.0)
 
-### Project Status
-
-- **Manuscript Status**: *RA-L (Robotics and Automation Letters) — Under Review*
-- **Experimental Video**: https://youtu.be/gVHEpCb9g2o
 
 
 # PX4 Drone Autopilot
