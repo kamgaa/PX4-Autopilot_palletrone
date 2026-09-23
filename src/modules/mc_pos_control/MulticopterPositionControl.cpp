@@ -727,8 +727,9 @@ void MulticopterPositionControl::Run()
 			    && isTrajectorySetpointValid(_trajectory_setpoint);
 
 	if (!auto_enabled) {
-		const float altitude_limit = 30.f;   // 운용 고도에 맞춰 조정
-		const float manual_z_rate  = 0.5f;   // [m/s]
+		//const float altitude_limit = 30.f;   // 운용 고도에 맞춰 조정
+		const float altitude_limit = 1.5f;   // 운용 고도에 맞춰 조정
+		const float manual_z_rate  = 0.2f;   // [m/s]
 
 		if (manual_setpoint(2) < -0.4f) {
 			pose_z_setpoint -= manual_z_rate * dt;
