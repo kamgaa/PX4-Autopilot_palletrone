@@ -129,6 +129,13 @@ if (os.path.exists('src/modules/mavlink/mavlink/.git')):
 #define MAVLINK_LIB_GIT_VERSION_STR  "{mavlink_git_version}"
 #define MAVLINK_LIB_GIT_VERSION_BINARY 0x{mavlink_git_version_short}
 """
+elif os.path.isdir('src/modules/mavlink/mavlink'):
+    # MAVLink protocol version reporting still needs a hash value when its
+    # sources are bundled. Zero denotes unavailable independent Git metadata.
+    header += """
+#define MAVLINK_LIB_GIT_VERSION_STR  "bundled"
+#define MAVLINK_LIB_GIT_VERSION_BINARY 0x0000000000000000
+"""
 
 
 # NuttX
@@ -145,6 +152,14 @@ if (os.path.exists('platforms/nuttx/NuttX/nuttx/.git')):
 #define NUTTX_GIT_VERSION_STR  "{nuttx_git_version}"
 #define NUTTX_GIT_VERSION_BINARY 0x{nuttx_git_version_short}
 #define NUTTX_GIT_TAG_STR  "{nuttx_git_tag}"
+"""
+elif os.path.isdir('platforms/nuttx/NuttX/nuttx'):
+    # Bundled sources have no independent Git history. Do not report the
+    # parent PX4 commit as a NuttX commit or invent an upstream version tag.
+    header += """
+#define NUTTX_GIT_VERSION_STR  "bundled"
+#define NUTTX_GIT_VERSION_BINARY 0x0000000000000000
+#define NUTTX_GIT_TAG_STR  "unknown"
 """
 
 

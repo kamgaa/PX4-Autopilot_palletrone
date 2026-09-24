@@ -70,6 +70,25 @@ function(px4_add_git_submodule)
 		file(RELATIVE_PATH REL_PATH ${PX4_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/${PATH})
 	endif()
 
+	# Some downstream repositories commit third-party sources directly instead
+	# of tracking them as gitlinks. Keep the dependency target, but do not try
+	# to initialize a submodule or depend on .git for those source directories.
+	if(IS_DIRECTORY "${PX4_SOURCE_DIR}/${REL_PATH}" AND NOT EXISTS "${PX4_SOURCE_DIR}/${REL_PATH}/.git")
+		execute_process(
+			COMMAND git ls-tree HEAD -- "${REL_PATH}"
+			WORKING_DIRECTORY "${PX4_SOURCE_DIR}"
+			OUTPUT_VARIABLE source_tree_entry
+			OUTPUT_STRIP_TRAILING_WHITESPACE
+			RESULT_VARIABLE source_tree_result
+		)
+
+		if(source_tree_result EQUAL 0 AND source_tree_entry MATCHES "^040000 tree ")
+			message(STATUS "Using bundled sources: ${REL_PATH}")
+			add_custom_target(${TARGET})
+			return()
+		endif()
+	endif()
+
 	execute_process(
 		COMMAND Tools/check_submodules.sh ${REL_PATH}
 		WORKING_DIRECTORY ${PX4_SOURCE_DIR}
@@ -81,7 +100,7 @@ function(px4_add_git_submodule)
 	add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/git_init_${NAME}.stamp
 		COMMAND Tools/check_submodules.sh ${REL_PATH}
 		COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/git_init_${NAME}.stamp
-		DEPENDS ${PX4_SOURCE_DIR}/.gitmodules ${PATH}/.git
+		DEPENDS "${PX4_SOURCE_DIR}/.gitmodules" "${PX4_SOURCE_DIR}/${REL_PATH}/.git"
 		COMMENT "git submodule ${REL_PATH}"
 		WORKING_DIRECTORY ${PX4_SOURCE_DIR}
 		USES_TERMINAL

@@ -108,3 +108,9 @@ src/systemcmds/topic_listener/listener_generated.cpp
 
 # colcon
 log/
+
+# Required source files in bundled dependencies, not build/log output.
+!/platforms/nuttx/NuttX/nuttx/libs/libc/bin/
+!/platforms/nuttx/NuttX/nuttx/libs/libnx/bin/
+!/platforms/nuttx/NuttX/nuttx/mm/bin/
+!/src/modules/uxrce_dds_client/Micro-XRCE-DDS-Client/src/c/core/log/

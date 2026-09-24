@@ -6,6 +6,10 @@ build*
 share/
 __pycache__
 generator/C/
+# This snapshot vendors the fixed MAVLink 2 C headers needed by mavgen.
+!generator/C/
+generator/C/*
+!generator/C/include_v2.0/
 generator/CPP11/include_v2.0
 generator/python/
 generator/message_definitions
