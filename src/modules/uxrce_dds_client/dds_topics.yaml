@@ -118,6 +118,22 @@ publications:
 
   - topic: /fmu/out/l1_adaptive_status
     type: px4_msgs::msg::L1AdaptiveStatus
+#################### For GCS #############################    
+  - topic: /fmu/out/battery_status
+    type: px4_msgs::msg::BatteryStatus
+
+  - topic: /fmu/out/vehicle_status
+    type: px4_msgs::msg::VehicleStatus
+
+  - topic: /fmu/out/actuator_armed
+    type: px4_msgs::msg::ActuatorArmed
+    
+  - topic: /fmu/out/vehicle_global_position
+    type: px4_msgs::msg::VehicleGlobalPosition
+    
+  - topic: /fmu/out/vehicle_gps_position
+    type: px4_msgs::msg::SensorGps
+
 
 # Create uORB::Publication
 subscriptions:
